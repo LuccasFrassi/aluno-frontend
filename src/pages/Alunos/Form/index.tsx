@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable eqeqeq */
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import api from '../../../services/api';
@@ -34,7 +36,7 @@ const Alunos: React.FC = () => {
 
   useEffect(() => {
     console.log(id)
-    if (id !== undefined) {
+    if (id != undefined) {
       findAluno(id)
     }
   }, [id])
@@ -49,11 +51,14 @@ const Alunos: React.FC = () => {
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const response = await api.post('/alunos', model)
-
-    console.log(response)
+    if (id != undefined) {
+      const response = await api.put(`/alunos/${id}`, model)
+    }
+    else {
+      const response = await api.post('/alunos', model)
+    }
+    back()
   }
-
 
   function back() {
     history.goBack()
